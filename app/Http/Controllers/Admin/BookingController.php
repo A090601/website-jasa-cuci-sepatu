@@ -74,7 +74,7 @@ class BookingController extends Controller
             'booking_time' => 'required',
             'shoe_type' => 'nullable|string|max:255',
             'shoe_brand' => 'nullable|string|max:255',
-            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:40960',
             'note' => 'nullable|string',
         ]);
 
@@ -145,8 +145,8 @@ class BookingController extends Controller
             'booking_date' => 'required|date',
             'booking_time' => 'required',
 
-            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
-            'after_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:40960',
+            'after_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:40960',
 
             'status' => 'required|in:pending,process,done',
         ]);
