@@ -69,25 +69,36 @@
 
                     </div>
 
-                  <div class="grid md:grid-cols-2 gap-5 mt-5">
+                <div class="grid md:grid-cols-2 gap-5 mt-5">
 
-    {{-- INPUT TANGGAL BAWAAN (Aman & Memiliki Teks Petunjuk di HP) --}}
-    <input type="date" 
-           name="booking_date" 
-           class="w-full border rounded-lg p-3 text-gray-700 bg-white relative 
-                  before:content-['Pilih_Tanggal_Booking'] before:text-gray-400 before:absolute before:left-3 before:top-3.5 before:pointer-events-none 
-                  focus:before:hidden valid:before:hidden"
-           required>
+    {{-- KOLOM TANGGAL DENGAN IKON --}}
+    <div class="relative w-full">
+        <input type="text" 
+               name="booking_date" 
+               placeholder="Pilih Tanggal Booking" 
+               class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white"
+               onfocus="(this.type='date')"
+               onblur="(this.type='text')"
+               required>
+        <!-- Ikon Kalender Manual -->
+        <span class="absolute right-3 top-3.5 text-gray-400 pointer-events-none">📅</span>
+    </div>
 
-    {{-- INPUT JAM BAWAAN (Aman & Memiliki Teks Petunjuk di HP) --}}
-    <input type="time" 
-           name="booking_time" 
-           class="w-full border rounded-lg p-3 text-gray-700 bg-white relative 
-                  before:content-['Pilih_Jam_Booking'] before:text-gray-400 before:absolute before:left-3 before:top-3.5 before:pointer-events-none 
-                  focus:before:hidden valid:before:hidden"
-           required>
+    {{-- KOLOM JAM DENGAN IKON --}}
+    <div class="relative w-full">
+        <input type="text" 
+               name="booking_time" 
+               placeholder="Pilih Jam Booking" 
+               class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white"
+               onfocus="(this.type='time')"
+               onblur="(this.type='text')"
+               required>
+        <!-- Ikon Jam Manual -->
+        <span class="absolute right-3 top-3.5 text-gray-400 pointer-events-none">🕒</span>
+    </div>
 
 </div>
+
 
 
                     <div class="mt-5">
