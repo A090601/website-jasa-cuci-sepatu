@@ -97,31 +97,36 @@
 
                 </div>
 
-                <div class="grid grid-cols-2 gap-5">
+               <div class="grid md:grid-cols-2 gap-5 mt-5">
 
-                    {{-- Tanggal --}}
-                    <div>
+    {{-- KOLOM TANGGAL ADMIN (Dengan Ikon Emoji Manual agar selalu muncul di HP) --}}
+    <div class="relative w-full">
+        <label class="block mb-1 font-semibold text-gray-700">Tanggal Booking</label>
+        <input type="text" 
+               name="booking_date" 
+               placeholder="Pilih Tanggal Booking" 
+               class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white"
+               onfocus="(this.type='date')"
+               onblur="(this.type='text')"
+               required>
+        <span class="absolute right-3 top-[42px] text-gray-400 pointer-events-none">📅</span>
+    </div>
 
-                        <label class="block mb-2 font-medium">
-                            Tanggal Booking
-                        </label>
+    {{-- KOLOM JAM ADMIN (Dengan Ikon Emoji Manual agar selalu muncul di HP) --}}
+    <div class="relative w-full">
+        <label class="block mb-1 font-semibold text-gray-700">Jam Booking</label>
+        <input type="text" 
+               name="booking_time" 
+               placeholder="Pilih Jam Booking" 
+               class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white"
+               onfocus="(this.type='time')"
+               onblur="(this.type='text')"
+               required>
+        <span class="absolute right-3 top-[42px] text-gray-400 pointer-events-none">🕒</span>
+    </div>
 
-                        <input type="date" name="booking_date" class="w-full border rounded-xl px-4 py-3" required>
+</div>
 
-                    </div>
-
-                    {{-- Jam --}}
-                    <div>
-
-                        <label class="block mb-2 font-medium">
-                            Jam Booking
-                        </label>
-
-                        <input type="time" name="booking_time" class="w-full border rounded-xl px-4 py-3" required>
-
-                    </div>
-
-                </div>
 
                 {{-- Jenis Sepatu --}}
                 <div class="mt-5">
