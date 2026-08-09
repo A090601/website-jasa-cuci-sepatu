@@ -69,13 +69,26 @@
 
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-5 mt-5">
+                  <div class="grid md:grid-cols-2 gap-5 mt-5">
 
-                        <input type="date" name="booking_date" class="border rounded-lg p-3">
+    {{-- INPUT TANGGAL BAWAAN (Aman & Memiliki Teks Petunjuk di HP) --}}
+    <input type="date" 
+           name="booking_date" 
+           class="w-full border rounded-lg p-3 text-gray-700 bg-white relative 
+                  before:content-['Pilih_Tanggal_Booking'] before:text-gray-400 before:absolute before:left-3 before:top-3.5 before:pointer-events-none 
+                  focus:before:hidden valid:before:hidden"
+           required>
 
-                        <input type="time" name="booking_time" class="border rounded-lg p-3">
+    {{-- INPUT JAM BAWAAN (Aman & Memiliki Teks Petunjuk di HP) --}}
+    <input type="time" 
+           name="booking_time" 
+           class="w-full border rounded-lg p-3 text-gray-700 bg-white relative 
+                  before:content-['Pilih_Jam_Booking'] before:text-gray-400 before:absolute before:left-3 before:top-3.5 before:pointer-events-none 
+                  focus:before:hidden valid:before:hidden"
+           required>
 
-                    </div>
+</div>
+
 
                     <div class="mt-5">
 
