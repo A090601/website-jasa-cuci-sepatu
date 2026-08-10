@@ -1,0 +1,8 @@
+[phases.setup]
+nixpacksArchive = true
+
+[phases.build]
+cmds = ['npm install', 'npm run build', 'php artisan optimize']
+
+[start]
+cmd = 'node_modules/.bin/nixpacks-php-entrypoint'
