@@ -135,7 +135,7 @@ class BookingController extends Controller
         );
     }
 
-       public function update(Request $request, Booking $booking)
+     public function update(Request $request, Booking $booking)
     {
         $request->validate([
             'customer_name' => 'required|string|max:255',
@@ -145,9 +145,8 @@ class BookingController extends Controller
             'booking_date' => 'required|date',
             'booking_time' => 'required',
 
-            // FIX: Menambahkan ekstensi huruf besar (JPG, JPEG, PNG) demi jepretan kamera HP langsung
-            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp,JPG,JPEG,PNG|max:40960',
-            'after_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp,JPG,JPEG,PNG|max:40960',
+            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'after_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
 
             'status' => 'required|in:pending,process,done',
         ]);
@@ -194,7 +193,6 @@ class BookingController extends Controller
             ->route('admin.bookings.index')
             ->with('success', 'Booking berhasil diperbarui.');
     }
-
 
     public function destroy(Booking $booking)
     {
