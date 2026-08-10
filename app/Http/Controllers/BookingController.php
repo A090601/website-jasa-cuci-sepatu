@@ -74,7 +74,7 @@ class BookingController extends Controller
             'shoe_type' => 'nullable|max:255',
             'shoe_brand' => 'nullable|max:255',
 
-            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:40960',
+            'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
             'note' => 'nullable',
         ]);
