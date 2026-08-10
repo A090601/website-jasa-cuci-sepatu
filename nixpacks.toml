@@ -2,13 +2,13 @@
 nixpacksArchive = true
 
 [phases.build]
-cmds = ['npm install', 'npm run build', 'php artisan optimize']
+# Memaksa server menyuntikkan pengaturan 40MB langsung ke dalam file php.ini internal Railway
+cmds = [
+    'npm install', 
+    'npm run build', 
+    'PHP_INI_PATH=$(php -i | grep "/php.ini" | awk "{print $6}") && echo -e "\nupload_max_filesize = 40M\npost_max_size = 40M\nmemory_limit = 512M" >> $PHP_INI_PATH',
+    'php artisan optimize'
+]
 
 [start]
 cmd = 'node_modules/.bin/nixpacks-php-entrypoint'
-
-[envs]
-# Dipaksa ke 40M agar sinkron dengan batasan 40960 di Laravel Anda
-PHP_UPLOAD_MAX_FILESIZE = "40M"
-PHP_POST_MAX_SIZE = "40M"
-PHP_MEMORY_LIMIT = "512M"
