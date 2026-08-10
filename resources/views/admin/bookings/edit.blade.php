@@ -15,109 +15,76 @@
             <form action="{{ route('admin.bookings.update', $booking) }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-                 @method('PUT')
+                @method('PUT')
                
-
                 <div class="mb-5">
-
                     <label class="block mb-2 font-medium">
                         Nama Pelanggan
                     </label>
-
                     <input type="text" name="customer_name" value="{{ old('customer_name', $booking->customer_name) }}"
                         class="w-full border rounded-xl px-4 py-3">
-
                 </div>
 
                 <div class="mb-5">
-
                     <label class="block mb-2 font-medium">
                         Nomor HP
                     </label>
-
                     <input type="text" name="phone" value="{{ old('phone', $booking->phone) }}"
                         class="w-full border rounded-xl px-4 py-3">
-
                 </div>
 
                 <div class="mb-5">
-
                     <label class="block mb-2 font-medium">
                         Layanan
                     </label>
-
                     <select name="service_id" class="w-full border rounded-xl px-4 py-3">
-
                         @foreach ($services as $service)
                             <option value="{{ $service->id }}"
-                                {{ $booking->service_id == $service->id ? 'selected' : '' }}>
-
+                                {{ old('service_id', $booking->service_id) == $service->id ? 'selected' : '' }}>
                                 {{ $service->name }}
-
                             </option>
                         @endforeach
-
                     </select>
-
                 </div>
 
                 <div class="mb-5">
-
                     <label class="block mb-2 font-medium">
                         Paket
                     </label>
-
                     <select name="price_id" class="w-full border rounded-xl px-4 py-3">
-
                         @foreach ($prices as $price)
                             <option value="{{ $price->id }}" data-service="{{ $price->service_id }}"
-                                data-price="{{ $price->price }}" {{ $booking->price_id == $price->id ? 'selected' : '' }}>
-
+                                data-price="{{ $price->price }}" {{ old('price_id', $booking->price_id) == $price->id ? 'selected' : '' }}>
                                 {{ $price->package_name }}
                                 - Rp {{ number_format($price->price, 0, ',', '.') }}
-
                             </option>
                         @endforeach
-
                     </select>
-
                 </div>
 
                 <div class="mb-5">
-
                     <label class="block mb-2 font-medium">
                         Total Harga
                     </label>
-
                     <input type="text" id="totalPrice" class="w-full border rounded-xl px-4 py-3 bg-gray-100"
                         value="Rp {{ number_format($booking->total_price, 0, ',', '.') }}" readonly>
-
                 </div>
 
                 <div class="grid grid-cols-2 gap-5">
-
                     <div>
-
                         <label class="block mb-2">
                             Tanggal
                         </label>
-
-                        <input type="date" name="booking_date" value="{{ $booking->booking_date }}"
+                        <input type="date" name="booking_date" value="{{ old('booking_date', $booking->booking_date) }}"
                             class="w-full border rounded-xl px-4 py-3">
-
                     </div>
-
                     <div>
-
                         <label class="block mb-2">
                             Jam
                         </label>
-
-                        <input type="time" name="booking_time" value="{{ $booking->booking_time }}"
+                        <input type="time" name="booking_time" value="{{ old('booking_time', $booking->booking_time) }}"
                             class="w-full border rounded-xl px-4 py-3">
-
                     </div>
-
                 </div>
 
                 <div class="mt-5">
@@ -130,8 +97,8 @@
                             class="w-32 h-32 object-cover rounded-xl border mb-3">
                     @endif
 
-                    <input type="file" name="shoe_photo" accept="image/*" capture="environment"
-                        class="w-full border rounded-lg p-3">
+                    <input type="file" name="shoe_photo" accept="image/*"
+                        class="block w-full text-sm text-gray-500 border border-gray-300 rounded-xl cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-3 file:px-4 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
 
                     <p class="text-sm text-gray-500 mt-2">
                         Kosongkan jika tidak ingin mengganti foto.
@@ -148,8 +115,8 @@
                             class="w-32 h-32 object-cover rounded-xl border mb-3">
                     @endif
 
-                    <input type="file" name="after_photo" accept="image/*" capture="environment"
-                        class="w-full border rounded-lg p-3">
+                    <input type="file" name="after_photo" accept="image/*"
+                        class="block w-full text-sm text-gray-500 border border-gray-300 rounded-xl cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-3 file:px-4 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
 
                     <p class="text-sm text-gray-500 mt-2">
                         Upload foto hasil setelah sepatu selesai dicuci.
@@ -157,43 +124,29 @@
                 </div>
 
                 <div class="mt-5">
-
                     <label class="block mb-2">
                         Status
                     </label>
-
                     <select name="status" class="w-full border rounded-xl px-4 py-3">
-
-                        <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>
+                        <option value="pending" {{ old('status', $booking->status) == 'pending' ? 'selected' : '' }}>
                             Pending
                         </option>
-
-                        <option value="process" {{ $booking->status == 'process' ? 'selected' : '' }}>
+                        <option value="process" {{ old('status', $booking->status) == 'process' ? 'selected' : '' }}>
                             Diproses
                         </option>
-
-                        <option value="done" {{ $booking->status == 'done' ? 'selected' : '' }}>
+                        <option value="done" {{ old('status', $booking->status) == 'done' ? 'selected' : '' }}>
                             Selesai
                         </option>
-
                     </select>
-
                 </div>
 
                 <div class="mt-8 flex gap-3">
-
                     <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl">
-
                         Update Booking
-
                     </button>
-
                     <a href="{{ route('admin.bookings.index') }}" class="bg-gray-300 px-6 py-3 rounded-xl">
-
                         Batal
-
                     </a>
-
                 </div>
 
             </form>
@@ -201,43 +154,55 @@
         </div>
 
     </div>
+
     @push('scripts')
         <script>
             const serviceSelect = document.querySelector('[name="service_id"]');
             const priceSelect = document.querySelector('[name="price_id"]');
             const totalPrice = document.getElementById('totalPrice');
 
-            function filterPrices() {
-
+            function filterPrices(isInit = false) {
                 const serviceId = serviceSelect.value;
+                let hasSelected = false;
 
                 [...priceSelect.options].forEach(option => {
+                    const isMatch = option.dataset.service == serviceId;
+                    option.hidden = !isMatch;
 
-                    option.hidden = option.dataset.service != serviceId;
-
+                    if (!isMatch && option.selected) {
+                        option.selected = false;
+                    }
+                    if (isMatch && option.selected) {
+                        hasSelected = true;
+                    }
                 });
+
+                if (isInit && hasSelected) {
+                    updatePrice();
+                    return;
+                }
 
                 const firstVisible = [...priceSelect.options].find(option => !option.hidden);
 
                 if (firstVisible) {
                     firstVisible.selected = true;
                     updatePrice();
+                } else {
+                    totalPrice.value = 'Rp 0';
                 }
-
             }
 
             function updatePrice() {
-
                 const option = priceSelect.options[priceSelect.selectedIndex];
-
-                totalPrice.value = 'Rp ' + Number(option.dataset.price).toLocaleString('id-ID');
-
+                if (option) {
+                    totalPrice.value = 'Rp ' + Number(option.dataset.price).toLocaleString('id-ID');
+                }
             }
 
-            serviceSelect.addEventListener('change', filterPrices);
+            serviceSelect.addEventListener('change', () => filterPrices(false));
             priceSelect.addEventListener('change', updatePrice);
 
-            filterPrices();
+            filterPrices(true);
         </script>
     @endpush
 
