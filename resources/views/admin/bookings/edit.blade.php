@@ -15,7 +15,7 @@
             <form action="{{ route('admin.bookings.update', $booking) }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-                @method('PUT')
+               
 
                 <div class="mb-5">
 
