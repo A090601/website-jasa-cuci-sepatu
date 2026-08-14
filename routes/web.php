@@ -32,6 +32,9 @@ Route::post('/booking', [BookingController::class, 'store'])
 Route::get('/booking/success/{booking}', [BookingController::class, 'success'])
     ->name('booking.success');
 
+Route::get('/booking/{booking}/nota', [BookingController::class, 'nota'])
+    ->name('booking.nota');
+
 Route::get('/cek-status', [BookingController::class, 'statusForm'])
     ->name('booking.status');
 

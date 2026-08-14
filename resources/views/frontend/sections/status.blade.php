@@ -62,9 +62,49 @@
                             <p>📝 {{ $booking->note }}</p>
                         @endif
 
-                        <p class="text-green-600 font-bold text-xl">
-                            Rp {{ number_format($booking->total_price, 0, ',', '.') }}
-                        </p>
+                        <div class="mt-4 bg-indigo-50 rounded-xl p-4 space-y-3">
+
+                            <div class="flex justify-between">
+                                <span class="text-slate-600">
+                                    Paket
+                                </span>
+
+                                <span class="font-semibold text-slate-800">
+                                    {{ $booking->price->package_name ?? '-' }}
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between">
+                                <span class="text-slate-600">
+                                    Harga Satuan
+                                </span>
+
+                                <span class="font-semibold text-slate-800">
+                                    Rp {{ number_format($booking->price->price ?? 0, 0, ',', '.') }}
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between">
+                                <span class="text-slate-600">
+                                    Jumlah Sepatu
+                                </span>
+
+                                <span class="font-semibold text-slate-800">
+                                    {{ $booking->quantity ?? 1 }} Sepatu
+                                </span>
+                            </div>
+
+                            <div class="border-t border-indigo-200 pt-3 flex justify-between">
+                                <span class="font-bold text-slate-800">
+                                    Total
+                                </span>
+
+                                <span class="text-green-600 font-bold text-xl">
+                                    Rp {{ number_format($booking->total_price, 0, ',', '.') }}
+                                </span>
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -85,13 +125,22 @@
                         @endif
 
                         @if ($booking->status == 'done')
-                            <div class="mt-6">
+                            <div class="mt-6 flex flex-wrap gap-3">
+
                                 <a href="{{ route('testimonial.create', $booking) }}"
                                     class="inline-flex items-center bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl transition">
 
                                     ⭐ Beri Testimoni
 
                                 </a>
+
+                                <a href="{{ route('booking.nota', $booking) }}"
+                                    class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl transition">
+
+                                    📄 Nota PDF
+
+                                </a>
+
                             </div>
                         @endif
 

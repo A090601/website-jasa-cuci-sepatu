@@ -9,6 +9,7 @@ use App\Models\Gallery;
 use App\Models\Testimonial;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BookingController extends Controller
 {
@@ -35,7 +36,7 @@ class BookingController extends Controller
             'phone' => 'required'
         ]);
 
-        $bookings = Booking::with('service')
+        $bookings = Booking::with(['service', 'price'])
             ->where('phone', $request->phone)
             ->latest()
             ->get();
@@ -67,6 +68,7 @@ class BookingController extends Controller
 
             'service_id' => 'required|exists:services,id',
             'price_id' => 'required|exists:prices,id',
+            'quantity' => 'required|integer|min:1',
 
             'booking_date' => 'required|date',
             'booking_time' => 'required',
@@ -88,6 +90,9 @@ class BookingController extends Controller
 
         $price = Price::findOrFail($request->price_id);
 
+        $quantity = (int) $request->quantity;
+        $totalPrice = $price->price * $quantity;
+
         $lastBooking = Booking::latest('id')->first();
 
         $next = $lastBooking ? $lastBooking->id + 1 : 1;
@@ -100,6 +105,8 @@ class BookingController extends Controller
             'phone' => $request->phone,
             'service_id' => $request->service_id,
             'price_id' => $request->price_id,
+            'quantity' => $quantity,
+            'total_price' => $totalPrice,
             'booking_date' => $request->booking_date,
             'booking_time' => $request->booking_time,
             'shoe_brand' => $request->shoe_brand,
@@ -107,7 +114,6 @@ class BookingController extends Controller
             'shoe_photo' => $shoePhoto,
             'note' => $request->note,
             'status' => 'pending',
-            'total_price' => $price->price,
         ]);
 
         return redirect()
@@ -144,6 +150,20 @@ Terima kasih.";
         return view(
             'frontend.booking-success',
             compact('booking', 'waLink')
+        );
+    }
+
+    public function nota(Booking $booking)
+    {
+        $booking->load(['service', 'price']);
+
+        $pdf = Pdf::loadView(
+            'frontend.booking-nota',
+            compact('booking')
+        );
+
+        return $pdf->download(
+            'Nota-' . $booking->booking_code . '.pdf'
         );
     }
 }

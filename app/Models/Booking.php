@@ -12,6 +12,7 @@ class Booking extends Model
         'phone',
         'service_id',
         'price_id',
+        'quantity',
         'booking_date',
         'booking_time',
         'shoe_type',

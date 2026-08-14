@@ -95,37 +95,42 @@
 
                     </div>
 
+                    <div class="mb-5">
+                        <label class="block mb-2 font-medium">
+                            Jumlah Sepatu
+                        </label>
+
+                        <input type="number" name="quantity" value="{{ old('quantity', 1) }}" min="1" max="50"
+                            class="w-full border rounded-xl px-4 py-3" required>
+
+                        <p class="text-sm text-gray-500 mt-2">
+                            Masukkan jumlah sepatu yang ingin dicuci.
+                        </p>
+                    </div>
+
                 </div>
 
-               <div class="grid md:grid-cols-2 gap-5 mt-5">
+                <div class="grid md:grid-cols-2 gap-5 mt-5">
 
-    {{-- KOLOM TANGGAL ADMIN (Dengan Ikon Emoji Manual agar selalu muncul di HP) --}}
-    <div class="relative w-full">
-        <label class="block mb-1 font-semibold text-gray-700">Tanggal Booking</label>
-        <input type="text" 
-               name="booking_date" 
-               placeholder="Pilih Tanggal Booking" 
-               class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white"
-               onfocus="(this.type='date')"
-               onblur="(this.type='text')"
-               required>
-        <span class="absolute right-3 top-[42px] text-gray-400 pointer-events-none">📅</span>
-    </div>
+                    {{-- KOLOM TANGGAL ADMIN (Dengan Ikon Emoji Manual agar selalu muncul di HP) --}}
+                    <div class="relative w-full">
+                        <label class="block mb-1 font-semibold text-gray-700">Tanggal Booking</label>
+                        <input type="text" name="booking_date" placeholder="Pilih Tanggal Booking"
+                            class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white" onfocus="(this.type='date')"
+                            onblur="(this.type='text')" required>
+                        <span class="absolute right-3 top-[42px] text-gray-400 pointer-events-none">📅</span>
+                    </div>
 
-    {{-- KOLOM JAM ADMIN (Dengan Ikon Emoji Manual agar selalu muncul di HP) --}}
-    <div class="relative w-full">
-        <label class="block mb-1 font-semibold text-gray-700">Jam Booking</label>
-        <input type="text" 
-               name="booking_time" 
-               placeholder="Pilih Jam Booking" 
-               class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white"
-               onfocus="(this.type='time')"
-               onblur="(this.type='text')"
-               required>
-        <span class="absolute right-3 top-[42px] text-gray-400 pointer-events-none">🕒</span>
-    </div>
+                    {{-- KOLOM JAM ADMIN (Dengan Ikon Emoji Manual agar selalu muncul di HP) --}}
+                    <div class="relative w-full">
+                        <label class="block mb-1 font-semibold text-gray-700">Jam Booking</label>
+                        <input type="text" name="booking_time" placeholder="Pilih Jam Booking"
+                            class="w-full border rounded-lg p-3 pr-10 text-gray-700 bg-white" onfocus="(this.type='time')"
+                            onblur="(this.type='text')" required>
+                        <span class="absolute right-3 top-[42px] text-gray-400 pointer-events-none">🕒</span>
+                    </div>
 
-</div>
+                </div>
 
 
                 {{-- Jenis Sepatu --}}

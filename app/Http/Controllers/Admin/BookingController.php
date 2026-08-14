@@ -70,8 +70,10 @@ class BookingController extends Controller
             'phone' => 'required|string|max:20',
             'service_id' => 'required|exists:services,id',
             'price_id' => 'required|exists:prices,id',
+            'quantity' => 'required|integer|min:1|max:50',
             'booking_date' => 'required|date',
             'booking_time' => 'required',
+
             'shoe_type' => 'nullable|string|max:255',
             'shoe_brand' => 'nullable|string|max:255',
             'shoe_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -80,11 +82,22 @@ class BookingController extends Controller
 
         $price = Price::findOrFail($request->price_id);
 
+        // Jumlah sepatu
+        $quantity = (int) $request->quantity;
+
+        // Harga satuan × jumlah sepatu
+        $totalPrice = $price->price * $quantity;
+
         $lastBooking = Booking::latest('id')->first();
 
         $next = $lastBooking ? $lastBooking->id + 1 : 1;
 
-        $bookingCode = 'SW-' . str_pad($next, 6, '0', STR_PAD_LEFT);
+        $bookingCode = 'SW-' . str_pad(
+            $next,
+            6,
+            '0',
+            STR_PAD_LEFT
+        );
 
         $shoePhoto = null;
 
@@ -99,6 +112,13 @@ class BookingController extends Controller
             'phone' => $request->phone,
             'service_id' => $request->service_id,
             'price_id' => $request->price_id,
+
+            // Simpan jumlah sepatu
+            'quantity' => $quantity,
+
+            // Simpan total harga
+            'total_price' => $totalPrice,
+
             'booking_date' => $request->booking_date,
             'booking_time' => $request->booking_time,
             'shoe_type' => $request->shoe_type,
@@ -106,7 +126,6 @@ class BookingController extends Controller
             'shoe_photo' => $shoePhoto,
             'note' => $request->note,
             'status' => 'pending',
-            'total_price' => $price->price,
         ]);
 
         return redirect()
@@ -135,13 +154,14 @@ class BookingController extends Controller
         );
     }
 
-     public function update(Request $request, Booking $booking)
+    public function update(Request $request, Booking $booking)
     {
         $request->validate([
             'customer_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'service_id' => 'required|exists:services,id',
             'price_id' => 'required|exists:prices,id',
+            'quantity' => 'required|integer|min:1|max:50',
             'booking_date' => 'required|date',
             'booking_time' => 'required',
 
@@ -153,13 +173,21 @@ class BookingController extends Controller
 
         $price = Price::findOrFail($request->price_id);
 
+        // Hitung total berdasarkan jumlah sepatu
+        $quantity = (int) $request->quantity;
+        $totalPrice = $price->price * $quantity;
+
         $shoePhoto = $booking->shoe_photo;
 
         if ($request->hasFile('shoe_photo')) {
 
-            if ($booking->shoe_photo && Storage::disk('public')->exists($booking->shoe_photo)) {
+            if (
+                $booking->shoe_photo &&
+                Storage::disk('public')->exists($booking->shoe_photo)
+            ) {
                 Storage::disk('public')->delete($booking->shoe_photo);
             }
+
             $shoePhoto = $request->file('shoe_photo')
                 ->store('shoe-photos', 'public');
         }
@@ -168,7 +196,10 @@ class BookingController extends Controller
 
         if ($request->hasFile('after_photo')) {
 
-            if ($booking->after_photo && Storage::disk('public')->exists($booking->after_photo)) {
+            if (
+                $booking->after_photo &&
+                Storage::disk('public')->exists($booking->after_photo)
+            ) {
                 Storage::disk('public')->delete($booking->after_photo);
             }
 
@@ -181,7 +212,13 @@ class BookingController extends Controller
             'phone' => $request->phone,
             'service_id' => $request->service_id,
             'price_id' => $request->price_id,
-            'total_price' => $price->price,
+
+            // Simpan jumlah sepatu
+            'quantity' => $quantity,
+
+            // Harga satuan × jumlah
+            'total_price' => $totalPrice,
+
             'booking_date' => $request->booking_date,
             'booking_time' => $request->booking_time,
             'shoe_photo' => $shoePhoto,
