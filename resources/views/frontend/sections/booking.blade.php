@@ -1,4 +1,3 @@
-```blade
 <section id="booking" class="py-24 bg-slate-50">
 
     <div class="max-w-6xl mx-auto px-6">
